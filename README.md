@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img height="60px" src="./utils/one-community.png">
+  <img height="90px" src="./utils/one-community.png">
 </p>
 
 
