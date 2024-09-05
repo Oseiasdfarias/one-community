@@ -17,3 +17,21 @@
 
 # One Community
 
+
+## Proposta do Projeto
+
+A proposta visa desenvolver um projeto dentro da Comunidade Alumni ONE focado em proporcionar uma vivência real para os graduados pelo programa.
+
+O projeto teria um ciclo de vida enquanto o programa existisse e tanto o seu desenvolvimento quanto a manutenção da aplicação serie feita pelos graduados.
+
+O projeto seguiria a ideia de uma empresa júnior sem fiz lucrativos, com estruturas de lideranças, mentores e desenvolvedores em diferentes linhas, tais como, Frontend, Backend, QA, DevOps, Testes Unitários, Engenharia de banco de dados, etc.
+
+
+## Projeto: One Community
+
+A ideia para ser implementada seria um fórum para que os graduados possam postar  e responder dúvidas sobre tópicos diversos em tecnologia, além disso, o Backend e Frontend seriam desenvolvidos com as tecnologias aprendidas ao longo do programa One.
+
+As funcionalidades da aplicação abrangeria, cadastro de usuário, criação de tópicos, responder tópicos, etc.
+
+
+# EM DESENVOLVIMENTO ...
