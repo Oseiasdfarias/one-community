@@ -17,6 +17,13 @@
 
 # One Community
 
+## Requisitos
+
++ Java 21
++ Spring Boot
++ MySQL
+
+
 
 ## Proposta do Projeto
 
