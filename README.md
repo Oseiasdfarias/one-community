@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img height="90px" src="./utils/one-community.png">
+  <img height="90px" src="./utils/logo1.jpeg">
 </p>
 
 
@@ -42,3 +42,8 @@ As funcionalidades da aplicação abrangeria, cadastro de usuário, criação de
 
 
 # EM DESENVOLVIMENTO ...
+
+
+<p align="center">
+  <img height="90px" src="./utils/logo2.jpeg">
+</p>
