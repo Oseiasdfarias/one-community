@@ -4,14 +4,22 @@
 <img src="https://img.shields.io/badge/MySQL-F2930E?style=for-the-badge&logo=mysql&logoColor=white">   
 <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white">  
 <img src="https://img.shields.io/badge/apache_maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
+<img src="https://img.shields.io/badge/flyway-8EB573.svg?style=for-the-badge&logo=flyway&logoColor=white">
+<img src="https://img.shields.io/badge/lombok-262425.svg?style=for-the-badge&logo=lumen&logoColor=white"> 
 <img src="https://img.shields.io/badge/git-F05032.svg?style=for-the-badge&logo=git&logoColor=white">  
 <img src="https://img.shields.io/badge/json-000000.svg?style=for-the-badge&logo=json&logoColor=white">  
 
 <br>
 </p>
 
-<p align="center">
+<!-- <p align="center">
   <img height="90px" src="./utils/logo1.jpeg">
+</p> -->
+
+
+<p align="center">
+  <img height="80" src="./utils/logo1.jpeg"> 
+  <img height="80" src="./utils/comite_alumnione.png">
 </p>
 
 
