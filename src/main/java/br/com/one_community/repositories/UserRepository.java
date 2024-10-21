@@ -1,4 +1,8 @@
 package br.com.one_community.repositories;
 
-public interface UserRepository {
+import br.com.one_community.entities.user.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface UserRepository  extends JpaRepository<User, Long> {
 }
