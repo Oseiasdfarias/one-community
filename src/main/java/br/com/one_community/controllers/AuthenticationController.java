@@ -3,7 +3,7 @@ package br.com.one_community.controllers;
 
 import br.com.one_community.entities.user.DataAutentication;
 import br.com.one_community.entities.user.User;
-import br.com.one_community.infra.security.DadosTokenJWT;
+import br.com.one_community.infra.security.DataTokenJWT;
 import br.com.one_community.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +34,6 @@ public class AuthenticationController {
 
         var tokenJWT = tokenService.gerarToken((User) authentication.getPrincipal());
 
-        return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+        return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
     }
 }
