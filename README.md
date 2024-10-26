@@ -49,7 +49,80 @@ A ideia para ser implementada seria um fórum para que os graduados possam posta
 As funcionalidades da aplicação abrangeria, cadastro de usuário, criação de tópicos, responder tópicos, etc.
 
 
-# EM DESENVOLVIMENTO ...
+# Entidades do Projeto
+
+## Entidade Users
+
+Modelagem da tabela `users` para o banco de dados MySQL.
+
+```sql 
+
+1. Users
+| Column        | Type         | Description                       |
+|---------------|--------------|-----------------------------------|
+| id            | BIGINT       | Primary Key (Auto Increment)      |
+| username      | VARCHAR(255) | Unique username                   |
+| email         | VARCHAR(255) | Users email address               |
+| password      | VARCHAR(255) | Hashed password                   |
+| role          | VARCHAR(50)  | Role of the user (admin, regular) |
+| created_at    | TIMESTAMP    | Account creation timestamp        |
+```
+
+
+### Endpoit Registro de usuário
+
+Esse Endpoit é público para que qualquer pessoa possa se cadastrar no sistema.
+
+```
+POST http://localhost:8080/users
+```
+
+Json para envio dos dados:
+
+```json
+{
+  "userName": "Fabio pereira",
+  "email": "fabio@gmail.com",
+  "password": "senha1234",
+	"role": "regular"
+}
+```
+
+Esse Endpoit é público para que qualquer pessoa que tenha um cadastro possa
+fazer o login no sistema.
+
+
+```
+POST http://localhost:8080/login
+```
+
+Json para envio dos dados:
+
+```json
+{
+  "login": "Fabio pereira",
+  "senha": "senha1234"
+}
+```
+
+Para esse endpoit é necessário efetuar o login e obter o Token para acessa-lo,
+ele recebe no final da `url` número de `id` para identificar o usuário que se
+deseja deletar, além disso, a pessoa logada pode deletar apenas seu próprio usuário.
+
+
+
+```
+DELETE http://localhost:8080/users/{id}
+```
+
+O tipo de Token é Bearer Token, exemplo de Token retornado é mostrado logo abaixo.
+
+
+```
+{
+	"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJGYWJpbyBwZXJlaXJhIiwiaXNzIjoiQVBJIE9uZUNvbW11bml0eS5jb20iLCJleHAiOjE3Mjk5ODM0OTV9.xvjRELtrwLsAjwWPV7FHF9pi1pHn71Q3hjIbhFTYBjw"
+}
+```
 
 
 <p align="center">
