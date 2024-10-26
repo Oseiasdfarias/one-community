@@ -51,6 +51,14 @@ As funcionalidades da aplicação abrangeria, cadastro de usuário, criação de
 
 # Entidades do Projeto
 
+O Banco de dados usado no projeto foi o MySQL, no arquivo `application.properties`
+você deve configurar seu banco de dados.
+
+> + Nome do banco de dados: one_community
+> + Usuário do banco de dados : XXXXXXXX
+> + Senha do banco de dados: XXXXXXXX
+
+
 ## Entidade Users
 
 Modelagem da tabela `users` para o banco de dados MySQL.
@@ -123,6 +131,8 @@ O tipo de Token é Bearer Token, exemplo de Token retornado é mostrado logo aba
 	"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJGYWJpbyBwZXJlaXJhIiwiaXNzIjoiQVBJIE9uZUNvbW11bml0eS5jb20iLCJleHAiOjE3Mjk5ODM0OTV9.xvjRELtrwLsAjwWPV7FHF9pi1pHn71Q3hjIbhFTYBjw"
 }
 ```
+
+
 
 
 <p align="center">
