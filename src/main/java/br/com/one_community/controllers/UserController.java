@@ -1,5 +1,6 @@
 package br.com.one_community.controllers;
 
+import br.com.one_community.entities.ValidationException;
 import br.com.one_community.entities.user.User;
 import br.com.one_community.entities.user.UserDetailsDto;
 import br.com.one_community.entities.user.UserDto;
@@ -8,6 +9,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,5 +37,26 @@ public class UserController {
         return ResponseEntity
                 .created(uri)
                 .body(new UserDetailsDto(user));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity excluirUser(@PathVariable Long id) {
+
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        User authenticatedUser = userRepository.findByName(username);
+
+        if (!userRepository.existsById(id)) {
+            throw new ValidationException("Id do autor informado não existe!");
+        }
+
+        if (!authenticatedUser.getId().equals(id)) {
+            throw new ValidationException("\"Você só pode deletar o seu próprio usuário.");
+        }
+
+        userRepository.deletarPorId(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

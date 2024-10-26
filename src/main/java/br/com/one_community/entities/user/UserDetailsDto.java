@@ -8,7 +8,7 @@ public record UserDetailsDto(
     public UserDetailsDto( User data) {
         this(
                 data.getId(),
-                data.getUserName(),
+                data.getUsername(),
                 data.getRole()
         );
     }
