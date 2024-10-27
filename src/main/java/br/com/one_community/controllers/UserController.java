@@ -41,7 +41,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity excluirUser(@PathVariable Long id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
 
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -52,7 +52,7 @@ public class UserController {
         }
 
         if (!authenticatedUser.getId().equals(id)) {
-            throw new ValidationException("\"Você só pode deletar o seu próprio usuário.");
+            throw new ValidationException("Você só pode deletar o seu próprio usuário.");
         }
 
         userRepository.deletarPorId(id);
