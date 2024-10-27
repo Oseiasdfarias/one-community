@@ -36,7 +36,7 @@ public class ErrorHandler {
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
-    private record dataValidationError (String campo, String mensagem) {
+    private record dataValidationError (String field, String message) {
         public dataValidationError(FieldError erro) {
             this(
                     erro.getField(),
