@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Collection;
@@ -37,7 +36,8 @@ public class User  implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private LocalDate created_at;
+    private Boolean status;
+    private LocalDateTime created_at;
 
 
     public User(UserDto data) {
@@ -45,9 +45,12 @@ public class User  implements UserDetails {
         email = data.email();
         password = gerarToken(data.password());
         role = data.role();
-        created_at = LocalDate.now();
+        created_at = LocalDateTime.now();
     }
 
+    public void deletarUser() {
+        this.status = false;
+    }
 
     public String gerarToken(String senha) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

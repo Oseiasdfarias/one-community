@@ -1,6 +1,5 @@
 package br.com.one_community.controllers;
 
-import br.com.one_community.entities.ValidationException;
 import br.com.one_community.entities.user.User;
 import br.com.one_community.entities.user.UserDetailsDto;
 import br.com.one_community.entities.user.UserDto;
@@ -39,24 +38,22 @@ public class UserController {
                 .body(new UserDetailsDto(user));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping()
     @Transactional
-    public ResponseEntity deleteUser(@PathVariable Long id) {
+    public ResponseEntity deleteUser() {
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User authenticatedUser = getauthenticatedUser();
 
-        User authenticatedUser = userRepository.findByName(username);
-
-        if (!userRepository.existsById(id)) {
-            throw new ValidationException("Id do autor informado não existe!");
-        }
-
-        if (!authenticatedUser.getId().equals(id)) {
-            throw new ValidationException("Você só pode deletar o seu próprio usuário.");
-        }
-
-        userRepository.deletarPorId(id);
+        authenticatedUser.deletarUser();
+        userRepository.save(authenticatedUser);
 
         return ResponseEntity.noContent().build();
+    }
+
+    private User getauthenticatedUser() {
+        return (User) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
     }
 }

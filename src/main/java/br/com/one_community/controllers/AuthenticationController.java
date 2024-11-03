@@ -1,7 +1,7 @@
 package br.com.one_community.controllers;
 
 
-import br.com.one_community.entities.ValidationException;
+
 import br.com.one_community.entities.user.DataAutentication;
 import br.com.one_community.entities.user.User;
 import br.com.one_community.infra.security.DataTokenJWT;
