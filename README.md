@@ -18,8 +18,8 @@
 
 
 <p align="center">
-  <img height="90" src="./utils/logo3.jpeg"> 
-  <img height="90" src="./utils/comite_alumnione.png">
+  <img height="110" src="./utils/logo3.jpeg"> 
+  <img height="110" src="./utils/comite_alumnione.png">
 </p>
 
 
