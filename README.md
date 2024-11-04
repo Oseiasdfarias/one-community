@@ -1,12 +1,15 @@
 <p align=center> 
 <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white">
-<img src="https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white">  
-<img src="https://img.shields.io/badge/MySQL-F2930E?style=for-the-badge&logo=mysql&logoColor=white">   
+<img src="https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white">
+<img src="https://img.shields.io/badge/spring%20security-%236DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white">
+<img src="https://img.shields.io/badge/openapi%20initiative-%236DB33F.svg?style=for-the-badge&logo=openapiinitiative&logoColor=white"> 
+  <img src="https://img.shields.io/badge/MySQL-F2930E?style=for-the-badge&logo=mysql&logoColor=white">   
 <img src="https://img.shields.io/badge/IntelliJ_IDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white">  
 <img src="https://img.shields.io/badge/apache_maven-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white">
 <img src="https://img.shields.io/badge/flyway-8EB573.svg?style=for-the-badge&logo=flyway&logoColor=white">
 <img src="https://img.shields.io/badge/lombok-262425.svg?style=for-the-badge&logo=lumen&logoColor=white"> 
-<img src="https://img.shields.io/badge/git-F05032.svg?style=for-the-badge&logo=git&logoColor=white">  
+<img src="https://img.shields.io/badge/git-F05032.svg?style=for-the-badge&logo=git&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717.svg?style=for-the-badge&logo=git&logoColor=white">
 <img src="https://img.shields.io/badge/json-000000.svg?style=for-the-badge&logo=json&logoColor=white">  
 
 <br>
@@ -58,6 +61,8 @@ você deve configurar seu banco de dados.
 > + Usuário do banco de dados : XXXXXXXX
 > + Senha do banco de dados: XXXXXXXX
 
+---
+
 
 ## Entidade Users
 
@@ -85,7 +90,7 @@ Modelagem da tabela `users` para o banco de dados MySQL.
 Esses endpoints permitem o registro, login e gerenciamento de contas de usuário. O cadastro e o login são públicos, enquanto a exclusão de uma conta exige autenticação.
 
 
-1. ### Método POST - Cadastro de Usuário
+1. ### Método POST - Registro de Usuário
 
 Endpoint público para registrar novos usuários no sistema. Qualquer pessoa pode se cadastrar.
 
@@ -99,6 +104,11 @@ POST http://localhost:8080/users
 
 Envie os dados do usuário no formato JSON, incluindo `userName`, `email`, `password`, e `role`.
 
+Onde:
+  + `userId`: ID do usuário;
+  + `title`: Título da pergunta;
+  + `body`: Corpo da pergunta, texto.
+
 ```json
 {
   "userName": "Fabio Pereira",
@@ -110,11 +120,19 @@ Envie os dados do usuário no formato JSON, incluindo `userName`, `email`, `pass
 
 **Resposta:**
 
-Retorna os detalhes do usuário criado, incluindo o `userId`, `userName`, e `role`.
+Retorna os detalhes do usuário criado, incluindo o `id`, `userName`, e `role`.
+
+```json
+{
+    "id": 39,
+    "userName": "Ana Pereira",
+    "role": "regular"
+}
+```
 
 ---
 
-2. ### Método POST - Login de Usuário
+1. ### Método POST - Login de Usuário
 
 Endpoint público para login de usuários previamente cadastrados. O usuário recebe um token de autenticação necessário para acessar endpoints protegidos.
 
@@ -128,6 +146,10 @@ POST http://localhost:8080/login
 
 Envie as credenciais de login no formato JSON, com `login` (nome de usuário) e `senha`:
 
+Onde:
+  + `login`: nome e sobrenome cadastrada durante o registro do usuário;
+  + `senha`: senha cadastrada durante o registro de usuário,
+
 ```json
 {
   "login": "Fabio Pereira",
@@ -137,7 +159,7 @@ Envie as credenciais de login no formato JSON, com `login` (nome de usuário) e 
 
 **Resposta:**
 
-Retorna um token JWT no formato Bearer Token, necessário para autenticar chamadas a endpoints protegidos.
+Retorna um **token JWT** no formato **Bearer Token**, necessário para autenticar chamadas a endpoints protegidos.
 
 Exemplo de token retornado:
 
@@ -194,6 +216,8 @@ Modelagem da tabela `questions` para o banco de dados MySQL.
 
 ```
 
++ ### Endpoit `http://localhost:8080/questions`
+
 Esses endpoints permitem o gerenciamento de perguntas de usuários autenticados, incluindo criação, listagem, atualização e exclusão de perguntas. Todos os endpoints requerem autenticação com Spring Security.
 
 
@@ -211,17 +235,32 @@ POST http://localhost:8080/questions
 
 Envie os dados da pergunta no formato JSON, especificando o `userId`, `title`, e `body`:
 
+Onde:
+  + `userId`: ID do usuário;
+  + `title`: Título da pergunta;
+  + `body`: Corpo da pergunta, texto.
+
 ```json
 {
-  "userId": 9,
-  "title": "Teste em Python",
-  "body": "Alguém conhece uma biblioteca Python para testes?"
+  "userId": 40,
+	"title": "Teste em Python",
+  "body": "Alguem conhece uma biblioteca Python para testes?"
 }
 ```
 
 **Resposta:**
 
-Retorna a pergunta criada com um identificador único (`questionId`), título e corpo.
+Retorna os seguintes dados: `questionId`, `userId`, `title` e `body`.
+
+
+```json
+{
+    "questionId": 13,
+    "userId": 40,
+    "title": "Teste em Python",
+    "body": "Alguem conhece uma biblioteca Python para testes?"
+}
+```
 
 ---
 
@@ -280,6 +319,12 @@ PUT http://localhost:8080/questions
 
 Envie o `id` da pergunta, `title`, e `body` no formato JSON:
 
+Onde:
+  + `id`: ID da pergunta ao qual se deseja atualizar;
+  + `title`: Título atualizado da pergunta que se deseja atualizar;
+  + `body`: Texto atualizado da pergunta.
+
+
 ```json
 {
   "id": 33,
@@ -288,7 +333,19 @@ Envie o `id` da pergunta, `title`, e `body` no formato JSON:
 }
 ```
 
----
+**Resposta:**
+
+Retorna os seguintes dados: `questionId`, `userId`, `title` e `body`.
+
+```json
+{
+  "questionId": 13,
+  "userId": 40,
+  "title": "Teste em Java Atualizado",
+  "body": "Alguém conhece uma biblioteca Java para testes? (Atualizado)"
+}
+```
+
 
 4. ### Método DELETE - Deletar Pergunta
 
@@ -309,6 +366,179 @@ DELETE http://localhost:8080/questions/{ID}
 ```
 DELETE http://localhost:8080/questions/33
 ```
+
+---
+
+
+
+## Entidade Answer
+
+Modelagem da tabela `answer` para o banco de dados MySQL.
+
+```sql 
+
+3. Answers
+| Column        | Type         | Description                         |
+|---------------|--------------|-------------------------------------|
+| id            | BIGINT       | Primary Key (Auto Increment)        |
+| question_id   | BIGINT       | Foreign Key to Questions            |
+| user_id       | BIGINT       | Foreign Key to Users                |
+| body          | TEXT         | Answer content                      |
+| created_at    | TIMESTAMP    | Answer creation timestamp           |
+| updated_at    | TIMESTAMP    | Last update timestamp               |
+| is_accepted   | BOOLEAN      | Indicates if the answer is accepted |
+
+```
+
+
++ ### Endpoit `http://localhost:8080/answers`
+
+
+Esses endpoints permitem o gerenciamento de respostas de usuários autenticados, incluindo criação, listagem, atualização e exclusão de respostas. Todos os endpoints requerem autenticação com Spring Security.
+
+
+1. ### Método POST - Criar Resposta
+
+Endpoint para postar uma nova resposta a uma pergunta. O usuário deve estar autenticado para realizar essa ação.
+
+**URL:**
+
+```
+POST http://localhost:8080/answers
+```
+
+**Corpo da Requisição:**
+
+Envie os dados da pergunta no formato JSON, especificando o `questionId` e `body`:
+
+Onde:
+  + `questionId`: ID de uma pergunta ao qual se deseja responder.
+  + `body`: Texto de resposta a pergunta.
+
+
+```json
+{
+    "questionId": 6,
+    "body": "JUnit - É BOA."
+}
+```
+
+**Resposta:**
+
+Retorna os seguintes dados: `answerId`, `userId`, `questionId` e `body`.
+
+
+```json
+{
+  "answerId": 7,
+  "userId": 40,
+  "questionId": 6,
+  "body": "JUnit - É BOA."
+}
+```
+
+
+2. ### Método GET - Listar Respostas de uma Pergunta
+
+Endpoint que lista todas as respostas de uma determinada pergunta.
+
+**URL:**
+
+```
+GET http://localhost:8080/answers
+```
+
+**Exemplo de Resposta:**
+
+A resposta inclui uma lista paginada das resposta de uma pergunta, com detalhes como `answerId`, `userId`, `questionId`, e `body`.
+
+```json
+{
+    "content": [
+        {
+            "answerId": 3,
+            "userId": 31,
+            "questionId": 1,
+            "body": "JUnit é uma biblioteca muito usada no java para testes unitários."
+        },
+        {
+            "answerId": 4,
+            "userId": 31,
+            "questionId": 1,
+            "body": "JUnit é uma boa opção e, java para testes unitários."
+        }
+    ],
+    "page": {
+        "size": 5,
+        "number": 0,
+        "totalElements": 2,
+        "totalPages": 1
+    }
+}
+```
+
+
+3. ### Método PUT - Atualizar Resposta
+
+Endpoint para atualizar uma resposta existente. O usuário deve estar autenticado e pode atualizar apenas resposta criadas por ele.
+
+**URL:**
+
+```
+PUT http://localhost:8080/answers
+```
+
+**Corpo da Requisição:**
+
+Envie o `id` da pergunta, `title`, e `body` no formato JSON:
+
+Onde:
+  + `answerId`: ID da pergunta ao qual se deseja atualizar;
+  + `body`: Texto atualizado da pergunta.
+
+
+```json
+{
+    "answerId": 7,
+    "body": "JUnit - É BOA. (PUT TEST)"
+}
+```
+
+**Resposta:**
+
+Retorna os seguintes dados: `answerId`, `userId`, `questionId` e `body`.
+
+```json
+{
+    "answerId": 7,
+    "userId": 40,
+    "questionId": 6,
+    "body": "JUnit - É BOA. (PUT TEST)"
+}
+```
+
+
+4. ### Método DELETE - Deletar Resposta
+
+Endpoint para deletar uma resposta feita pelo usuário. Apenas respostas criadas pelo usuário autenticado podem ser excluídas por ele.
+
+**URL:**
+
+```
+DELETE http://localhost:8080/answers/{ID}
+```
+
+**Parâmetros:**
+
+- **`ID`**: ID da resposta que será deletada.
+
+**Exemplo de Uso:**
+
+```
+DELETE http://localhost:8080/answers/33
+```
+
+---
 
 
 ---

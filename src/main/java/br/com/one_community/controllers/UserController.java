@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity registerUser(
+    public ResponseEntity<UserDetailsDto> registerUser(
             @RequestBody @Valid UserDto data,
             UriComponentsBuilder uriBuilder) {
 
@@ -40,7 +40,7 @@ public class UserController {
 
     @DeleteMapping()
     @Transactional
-    public ResponseEntity deleteUser() {
+    public ResponseEntity<Void> deleteUser() {
 
         User authenticatedUser = getauthenticatedUser();
 

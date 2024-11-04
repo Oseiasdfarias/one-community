@@ -3,7 +3,7 @@ package br.com.one_community.entities.question;
 import jakarta.validation.constraints.NotNull;
 
 public record QuestionDto(
-        @NotNull(message = "Nome é obrigatório.")
+        @NotNull(message = "Id do usuário é obrigatório.")
         Long userId,
         @NotNull(message = "Título é obrigatório.")
         String title,

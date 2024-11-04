@@ -44,7 +44,7 @@ public class Question {
         updatedAt = LocalDateTime.now();
     }
 
-    public void updateInfos(DataUpdateDto data) {
+    public void updateInfos(DataQuestionUpdateDto data) {
 
         if (data.title() != null) {
             this.title = data.title();

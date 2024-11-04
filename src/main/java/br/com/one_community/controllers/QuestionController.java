@@ -2,7 +2,7 @@ package br.com.one_community.controllers;
 
 
 import br.com.one_community.entities.ValidationException;
-import br.com.one_community.entities.question.DataUpdateDto;
+import br.com.one_community.entities.question.DataQuestionUpdateDto;
 import br.com.one_community.entities.question.Question;
 import br.com.one_community.entities.question.QuestionDetailsDto;
 import br.com.one_community.entities.question.QuestionDto;
@@ -32,7 +32,7 @@ public class QuestionController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity PostQuestion(
+    public ResponseEntity<QuestionDetailsDto> PostQuestion(
             @RequestBody @Valid QuestionDto data,
             UriComponentsBuilder uriBuilder) {
 
@@ -65,8 +65,8 @@ public class QuestionController {
 
     @PutMapping
     @Transactional
-    public ResponseEntity updateQuestion(
-            @RequestBody @Valid DataUpdateDto data) {
+    public ResponseEntity<QuestionDetailsDto> updateQuestion(
+            @RequestBody @Valid DataQuestionUpdateDto data) {
 
         if (!questionRepository.existsById(data.id())) {
             throw new ValidationException
@@ -87,7 +87,7 @@ public class QuestionController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity deleteQuestion(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
 
         Long userId = getauthenticatedUser().getId();
 

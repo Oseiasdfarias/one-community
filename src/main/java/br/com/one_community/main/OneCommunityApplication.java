@@ -10,7 +10,8 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 @EnableJpaRepositories(basePackages = "br.com.one_community.repositories")
 @EntityScan(basePackages = {
 		"br.com.one_community.entities.user",
-		"br.com.one_community.entities.question"
+		"br.com.one_community.entities.question",
+		"br.com.one_community.entities.answer"
 })
 @EnableSpringDataWebSupport(
 		pageSerializationMode = EnableSpringDataWebSupport

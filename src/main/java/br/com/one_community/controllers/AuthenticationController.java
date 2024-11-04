@@ -2,6 +2,7 @@ package br.com.one_community.controllers;
 
 
 
+import br.com.one_community.entities.ValidationException;
 import br.com.one_community.entities.user.DataAutentication;
 import br.com.one_community.entities.user.User;
 import br.com.one_community.infra.security.DataTokenJWT;
@@ -28,14 +29,24 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity efetuarLogin(@RequestBody @Valid DataAutentication data) {
+    public ResponseEntity<DataTokenJWT> efetuarLogin(
+            @RequestBody @Valid DataAutentication data) {
 
         var autenticationToken = new UsernamePasswordAuthenticationToken(
                 data.login(), data.senha());
-
         var authentication = manager.authenticate(autenticationToken);
 
+        if (authentication.getName() == null) {
+            throw new ValidationException("Login ou senha incorreto!");
+        }
+
         var tokenJWT = tokenService.gerarToken((User) authentication.getPrincipal());
+
+        var user = (User) authentication.getPrincipal();
+
+        if (!user.getStatus()) {
+            throw new ValidationException("Usuário Deletado!");
+        }
 
         return ResponseEntity.ok(new DataTokenJWT(tokenJWT));
     }
