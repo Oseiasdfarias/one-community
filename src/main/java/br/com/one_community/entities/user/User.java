@@ -41,11 +41,12 @@ public class User  implements UserDetails {
 
 
     public User(UserDto data) {
-        userName = data.userName();
-        email = data.email();
-        password = gerarToken(data.password());
-        role = data.role();
-        created_at = LocalDateTime.now();
+        this.userName = data.userName();
+        this.email = data.email();
+        this.password = gerarToken(data.password());
+        this.role = data.role();
+        this.created_at = LocalDateTime.now();
+        this.status = true;
     }
 
     public void deletarUser() {
