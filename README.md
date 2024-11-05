@@ -26,13 +26,13 @@
 </p>
 
 
-# One Community
+<h1 align="center"><strong>One Community</strong></h1>
 
 ## Requisitos
 
-+ Java 21
-+ Spring Boot
-+ MySQL
++ **Java 21**
++ **Spring Boot**
++ **MySQL**
 
 
 
@@ -57,10 +57,11 @@ As funcionalidades da aplicação abrangeria, cadastro de usuário, criação de
 O Banco de dados usado no projeto foi o MySQL, no arquivo `application.properties`
 você deve configurar seu banco de dados.
 
-> + Nome do banco de dados: one_community
-> + Usuário do banco de dados : XXXXXXXX
-> + Senha do banco de dados: XXXXXXXX
-
+```
+  ❯ Nome do banco de dados: one_community
+  ❯ Usuário do banco de dados : XXXXXXXX
+  ❯ Senha do banco de dados: XXXXXXXX
+```
 ---
 
 
@@ -90,14 +91,14 @@ Modelagem da tabela `users` para o banco de dados MySQL.
 Esses endpoints permitem o registro, login e gerenciamento de contas de usuário. O cadastro e o login são públicos, enquanto a exclusão de uma conta exige autenticação.
 
 
-1. ### Método POST - Registro de Usuário
+1. #### **Método POST - Registro de Usuário**
 
 Endpoint público para registrar novos usuários no sistema. Qualquer pessoa pode se cadastrar.
 
 **URL:**
 
 ```
-POST http://localhost:8080/users
+❯ POST http://localhost:8080/users
 ```
 
 **Corpo da Requisição:**
@@ -107,7 +108,8 @@ Envie os dados do usuário no formato JSON, incluindo `userName`, `email`, `pass
 Onde:
   + `userId`: ID do usuário;
   + `title`: Título da pergunta;
-  + `body`: Corpo da pergunta, texto.
+  + `body`: Corpo da pergunta, texto;
+  + `role`: tipo de usuário [regular, admin]
 
 ```json
 {
@@ -132,27 +134,27 @@ Retorna os detalhes do usuário criado, incluindo o `id`, `userName`, e `role`.
 
 ---
 
-1. ### Método POST - Login de Usuário
+2. #### **Método POST - Login de Usuário**
 
 Endpoint público para login de usuários previamente cadastrados. O usuário recebe um token de autenticação necessário para acessar endpoints protegidos.
 
 **URL:**
 
 ```
-POST http://localhost:8080/login
+❯ POST http://localhost:8080/login
 ```
 
 **Corpo da Requisição:**
 
-Envie as credenciais de login no formato JSON, com `login` (nome de usuário) e `senha`:
+Envie as credenciais de login no formato JSON, com os parâmetros `email` e `senha`:
 
 Onde:
-  + `login`: nome e sobrenome cadastrada durante o registro do usuário;
+  + `email`: email cadastrado durante o registro do usuário;
   + `senha`: senha cadastrada durante o registro de usuário,
 
 ```json
 {
-  "login": "Fabio Pereira",
+  "email": "Fabio Pereira",
   "senha": "senha1234"
 }
 ```
@@ -171,14 +173,14 @@ Exemplo de token retornado:
 
 ---
 
-3. ### Método DELETE - Deletar Usuário
+3. #### **Método DELETE - Deletar Usuário**
 
 Endpoint para deletar a conta de um usuário. É necessário estar autenticado e fornecer o token Bearer. O usuário pode deletar apenas a própria conta.
 
 **URL:**
 
 ```
-DELETE http://localhost:8080/users/{id}
+❯ DELETE http://localhost:8080/users/{id}
 ```
 
 **Parâmetros:**
@@ -189,7 +191,7 @@ DELETE http://localhost:8080/users/{id}
 **Exemplo de Requisição:**
 
 ```
-DELETE http://localhost:8080/users/9
+❯ DELETE http://localhost:8080/users/9
 ```
 
 
@@ -221,14 +223,14 @@ Modelagem da tabela `questions` para o banco de dados MySQL.
 Esses endpoints permitem o gerenciamento de perguntas de usuários autenticados, incluindo criação, listagem, atualização e exclusão de perguntas. Todos os endpoints requerem autenticação com Spring Security.
 
 
-1. ### Método POST - Criar Pergunta
+1. #### **Método POST - Criar Pergunta**
 
 Endpoint para postar uma nova pergunta. O usuário deve estar autenticado para realizar essa ação.
 
 **URL:**
 
 ```
-POST http://localhost:8080/questions
+❯ POST http://localhost:8080/questions
 ```
 
 **Corpo da Requisição:**
@@ -264,14 +266,14 @@ Retorna os seguintes dados: `questionId`, `userId`, `title` e `body`.
 
 ---
 
-2. ### Método GET - Listar Perguntas
+2. #### **Método GET - Listar Perguntas**
 
 Endpoint que lista todas as perguntas do usuário autenticado. Somente o usuário logado pode visualizar suas próprias perguntas.
 
 **URL:**
 
 ```
-GET http://localhost:8080/questions
+❯ GET http://localhost:8080/questions
 ```
 
 **Exemplo de Resposta:**
@@ -305,14 +307,14 @@ A resposta inclui uma lista paginada das perguntas do usuário, com detalhes com
 
 ---
 
-3. ### Método PUT - Atualizar Pergunta
+3. #### **Método PUT - Atualizar Pergunta**
 
 Endpoint para atualizar uma pergunta existente. O usuário deve estar autenticado e pode atualizar apenas perguntas criadas por ele.
 
 **URL:**
 
 ```
-PUT http://localhost:8080/questions
+❯ PUT http://localhost:8080/questions
 ```
 
 **Corpo da Requisição:**
@@ -347,14 +349,14 @@ Retorna os seguintes dados: `questionId`, `userId`, `title` e `body`.
 ```
 
 
-4. ### Método DELETE - Deletar Pergunta
+4. #### **Método DELETE - Deletar Pergunta**
 
 Endpoint para deletar uma pergunta. Apenas perguntas criadas pelo usuário autenticado podem ser excluídas.
 
 **URL:**
 
 ```
-DELETE http://localhost:8080/questions/{ID}
+❯ DELETE http://localhost:8080/questions/{ID}
 ```
 
 **Parâmetros:**
@@ -364,7 +366,7 @@ DELETE http://localhost:8080/questions/{ID}
 **Exemplo de Uso:**
 
 ```
-DELETE http://localhost:8080/questions/33
+❯ DELETE http://localhost:8080/questions/33
 ```
 
 ---
@@ -397,14 +399,14 @@ Modelagem da tabela `answer` para o banco de dados MySQL.
 Esses endpoints permitem o gerenciamento de respostas de usuários autenticados, incluindo criação, listagem, atualização e exclusão de respostas. Todos os endpoints requerem autenticação com Spring Security.
 
 
-1. ### Método POST - Criar Resposta
+1. #### **Método POST - Criar Resposta**
 
 Endpoint para postar uma nova resposta a uma pergunta. O usuário deve estar autenticado para realizar essa ação.
 
 **URL:**
 
 ```
-POST http://localhost:8080/answers
+❯ POST http://localhost:8080/answers
 ```
 
 **Corpo da Requisição:**
@@ -438,14 +440,14 @@ Retorna os seguintes dados: `answerId`, `userId`, `questionId` e `body`.
 ```
 
 
-2. ### Método GET - Listar Respostas de uma Pergunta
+2. #### **Método GET - Listar Respostas de uma Pergunta**
 
 Endpoint que lista todas as respostas de uma determinada pergunta.
 
 **URL:**
 
 ```
-GET http://localhost:8080/answers
+❯ GET http://localhost:8080/answers
 ```
 
 **Exemplo de Resposta:**
@@ -478,14 +480,14 @@ A resposta inclui uma lista paginada das resposta de uma pergunta, com detalhes 
 ```
 
 
-3. ### Método PUT - Atualizar Resposta
+3. #### **Método PUT - Atualizar Resposta**
 
 Endpoint para atualizar uma resposta existente. O usuário deve estar autenticado e pode atualizar apenas resposta criadas por ele.
 
 **URL:**
 
 ```
-PUT http://localhost:8080/answers
+❯ PUT http://localhost:8080/answers
 ```
 
 **Corpo da Requisição:**
@@ -518,14 +520,14 @@ Retorna os seguintes dados: `answerId`, `userId`, `questionId` e `body`.
 ```
 
 
-4. ### Método DELETE - Deletar Resposta
+4. #### **Método DELETE - Deletar Resposta**
 
 Endpoint para deletar uma resposta feita pelo usuário. Apenas respostas criadas pelo usuário autenticado podem ser excluídas por ele.
 
 **URL:**
 
 ```
-DELETE http://localhost:8080/answers/{ID}
+❯ DELETE http://localhost:8080/answers/{ID}
 ```
 
 **Parâmetros:**
@@ -535,16 +537,16 @@ DELETE http://localhost:8080/answers/{ID}
 **Exemplo de Uso:**
 
 ```
-DELETE http://localhost:8080/answers/33
+❯ DELETE http://localhost:8080/answers/33
 ```
 
----
 
 
 ---
 ---
 
-## EM DESENVLVIMENTO ...
+
+# **EM DESENVLVIMENTO ...**
 
 <br>
 <br>
