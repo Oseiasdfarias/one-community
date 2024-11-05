@@ -33,7 +33,7 @@ public class AuthenticationController {
             @RequestBody @Valid DataAutentication data) {
 
         var autenticationToken = new UsernamePasswordAuthenticationToken(
-                data.login(), data.senha());
+                data.email(), data.senha());
         var authentication = manager.authenticate(autenticationToken);
 
         if (authentication.getName() == null) {

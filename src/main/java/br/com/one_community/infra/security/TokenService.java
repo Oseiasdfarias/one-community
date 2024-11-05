@@ -24,7 +24,7 @@ public class TokenService {
             var algoritimo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("API OneCommunity.com")
-                    .withSubject(user.getUsername())
+                    .withSubject(user.getEmail())
                     .withExpiresAt(dataExpiracao())
                     .sign(algoritimo);
         } catch (JWTCreationException exception){

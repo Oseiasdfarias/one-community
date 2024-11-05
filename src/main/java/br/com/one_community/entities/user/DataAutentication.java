@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DataAutentication(
         @NotBlank(message = "Campo Login é obrigatório.")
-        String login,
+        String email,
         @NotBlank(message = "Campo Senha é obrigatório.")
         String senha) {
 }

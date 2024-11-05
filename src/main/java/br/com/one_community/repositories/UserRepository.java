@@ -6,14 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Optional;
+
 
 public interface UserRepository  extends JpaRepository<User, Long> {
-    UserDetails findByUserName(String userName);
+    Optional<User> findByEmail(String email);
 
     @Query("SELECT u FROM User u WHERE u.userName = :username")
     User findByName(String username);
 
-    @Modifying
-    @Query("DELETE FROM User u WHERE u.id = :id")
-    void deletarPorId(Long id);
 }

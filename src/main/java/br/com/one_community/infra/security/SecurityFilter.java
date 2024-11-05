@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -20,7 +21,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(
@@ -32,8 +33,10 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (tokenJWT != null) {
             var subject = tokenService.getSubject(tokenJWT);
-            var nome = repository.findByUserName(subject);
-            System.out.println(nome);
+            if (userRepository.findByEmail(subject).isEmpty()) {
+                return;
+            }
+            var nome = (UserDetails) userRepository.findByEmail(subject).get();
 
             var authentication = new UsernamePasswordAuthenticationToken(
                     nome, null, nome.getAuthorities());
@@ -51,7 +54,6 @@ public class SecurityFilter extends OncePerRequestFilter {
         if (authorizationHeader != null) {
             return authorizationHeader.replace("Bearer ", "");
         }
-
         return null;
     }
 }
