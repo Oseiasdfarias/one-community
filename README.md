@@ -97,7 +97,7 @@ Endpoint público para registrar novos usuários no sistema. Qualquer pessoa pod
 
 **URL:**
 
-```
+```bash
 ❯ POST http://localhost:8080/users
 ```
 
@@ -126,15 +126,106 @@ Retorna os detalhes do usuário criado, incluindo o `id`, `userName`, e `role`.
 
 ```json
 {
-    "id": 39,
-    "userName": "Ana Pereira",
-    "role": "regular"
+  "id": 39,
+  "userName": "Ana Pereira",
+  "role": "regular"
 }
 ```
 
 ---
 
-2. #### **Método POST - Login de Usuário**
+2. #### **Método PUT - Atualizar Dados do Usuário**
+
+Endpoint para atualizar os dados de um usuário. O usuário deve estar autenticado e pode atualizar apenas seus próprios dados.
+
+**URL:**
+
+```bash
+❯ PUT http://localhost:8080/users
+```
+
+**Corpo da Requisição:**
+
+Envie o `userName` do usuário e/ou `email` e/ou `password` no formato JSON, pode-se enviar nenhum, um ou mais parâmetros na requisição:
+
+Onde:
+  + `userName`: ID do usuário que se deseja atualizar os dados;
+  + `email`: Email novo que se deseja usar;
+  + `password`: Nova senha que se deseja usar.
+
+  > OBS: *A senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial."*.
+
+
+```json
+{
+  "userName": "XXXXXX XXXXx",
+  "email": "XXXX@xmail.com",
+  "password": "aaaa12@A"
+}
+
+OU
+
+{
+  "userName": "XXXXXX XXXXx",
+  "email": "XXXX@xmail.com"
+}
+
+OU
+
+{
+  "email": "XXXX@xmail.com"
+}
+```
+
+
+
+Entre outras combinações possíveis.
+
+
+**Resposta:**
+
+Retorna os seguintes dados: `id`, `userName` e `role`.
+
+```json
+{
+  "id": 45,
+  "userName": "Marcos Test",
+  "role": "regular"
+}
+```
+
+
+---
+
+1. #### **Método DELETE - Deletar Usuário**
+
+Endpoint para deletar a conta de um usuário. É necessário estar autenticado e fornecer o token Bearer. O usuário pode deletar apenas a própria conta.
+
+**URL:**
+
+```bash
+❯ DELETE http://localhost:8080/users/{id}
+```
+
+**Parâmetros:**
+
+- **`id`**: ID do usuário que será deletado. Deve corresponder ao ID do usuário logado.
+`
+
+**Exemplo de Requisição:**
+
+```bash
+❯ DELETE http://localhost:8080/users/9
+```
+
+
+---
+
++ ### Endpoit `http://localhost:8080/login`
+
+
+
+1. #### **Método POST - Login de Usuário**
 
 Endpoint público para login de usuários previamente cadastrados. O usuário recebe um token de autenticação necessário para acessar endpoints protegidos.
 
@@ -173,30 +264,6 @@ Exemplo de token retornado:
 
 ---
 
-3. #### **Método DELETE - Deletar Usuário**
-
-Endpoint para deletar a conta de um usuário. É necessário estar autenticado e fornecer o token Bearer. O usuário pode deletar apenas a própria conta.
-
-**URL:**
-
-```
-❯ DELETE http://localhost:8080/users/{id}
-```
-
-**Parâmetros:**
-
-- **`id`**: ID do usuário que será deletado. Deve corresponder ao ID do usuário logado.
-`
-
-**Exemplo de Requisição:**
-
-```
-❯ DELETE http://localhost:8080/users/9
-```
-
-
----
-
 
 + ## Entidade Questions
 
@@ -229,7 +296,7 @@ Endpoint para postar uma nova pergunta. O usuário deve estar autenticado para r
 
 **URL:**
 
-```
+```bash
 ❯ POST http://localhost:8080/questions
 ```
 
@@ -257,10 +324,10 @@ Retorna os seguintes dados: `questionId`, `userId`, `title` e `body`.
 
 ```json
 {
-    "questionId": 13,
-    "userId": 40,
-    "title": "Teste em Python",
-    "body": "Alguem conhece uma biblioteca Python para testes?"
+  "questionId": 13,
+  "userId": 40,
+  "title": "Teste em Python",
+  "body": "Alguem conhece uma biblioteca Python para testes?"
 }
 ```
 
@@ -272,7 +339,7 @@ Endpoint que lista todas as perguntas do usuário autenticado. Somente o usuári
 
 **URL:**
 
-```
+```bash
 ❯ GET http://localhost:8080/questions
 ```
 
@@ -313,7 +380,7 @@ Endpoint para atualizar uma pergunta existente. O usuário deve estar autenticad
 
 **URL:**
 
-```
+```bash
 ❯ PUT http://localhost:8080/questions
 ```
 
@@ -355,7 +422,7 @@ Endpoint para deletar uma pergunta. Apenas perguntas criadas pelo usuário auten
 
 **URL:**
 
-```
+```bash
 ❯ DELETE http://localhost:8080/questions/{ID}
 ```
 
@@ -365,7 +432,7 @@ Endpoint para deletar uma pergunta. Apenas perguntas criadas pelo usuário auten
 
 **Exemplo de Uso:**
 
-```
+```bash
 ❯ DELETE http://localhost:8080/questions/33
 ```
 
@@ -405,7 +472,7 @@ Endpoint para postar uma nova resposta a uma pergunta. O usuário deve estar aut
 
 **URL:**
 
-```
+```bash
 ❯ POST http://localhost:8080/answers
 ```
 
@@ -420,8 +487,8 @@ Onde:
 
 ```json
 {
-    "questionId": 6,
-    "body": "JUnit - É BOA."
+  "questionId": 6,
+  "body": "JUnit - É BOA."
 }
 ```
 
@@ -446,7 +513,7 @@ Endpoint que lista todas as respostas de uma determinada pergunta.
 
 **URL:**
 
-```
+```bash
 ❯ GET http://localhost:8080/answers/list-answers-question/{id}
 ```
 
@@ -456,26 +523,26 @@ A resposta inclui uma lista paginada das resposta de uma pergunta, com detalhes 
 
 ```json
 {
-    "content": [
-        {
-            "answerId": 3,
-            "userId": 31,
-            "questionId": 1,
-            "body": "JUnit é uma biblioteca muito usada no java para testes unitários."
-        },
-        {
-            "answerId": 4,
-            "userId": 31,
-            "questionId": 1,
-            "body": "JUnit é uma boa opção e, java para testes unitários."
-        }
-    ],
-    "page": {
-        "size": 5,
-        "number": 0,
-        "totalElements": 2,
-        "totalPages": 1
-    }
+  "content": [
+      {
+          "answerId": 3,
+          "userId": 31,
+          "questionId": 1,
+          "body": "JUnit é uma biblioteca muito usada no java para testes unitários."
+      },
+      {
+          "answerId": 4,
+          "userId": 31,
+          "questionId": 1,
+          "body": "JUnit é uma boa opção e, java para testes unitários."
+      }
+  ],
+  "page": {
+      "size": 5,
+      "number": 0,
+      "totalElements": 2,
+      "totalPages": 1
+  }
 }
 ```
 
@@ -486,7 +553,7 @@ Endpoint para atualizar uma resposta existente. O usuário deve estar autenticad
 
 **URL:**
 
-```
+```bash
 ❯ PUT http://localhost:8080/answers
 ```
 
@@ -501,8 +568,8 @@ Onde:
 
 ```json
 {
-    "answerId": 7,
-    "body": "JUnit - É BOA. (PUT TEST)"
+  "answerId": 7,
+  "body": "JUnit - É BOA. (PUT TEST)"
 }
 ```
 
@@ -512,10 +579,10 @@ Retorna os seguintes dados: `answerId`, `userId`, `questionId` e `body`.
 
 ```json
 {
-    "answerId": 7,
-    "userId": 40,
-    "questionId": 6,
-    "body": "JUnit - É BOA. (PUT TEST)"
+  "answerId": 7,
+  "userId": 40,
+  "questionId": 6,
+  "body": "JUnit - É BOA. (PUT TEST)"
 }
 ```
 
@@ -526,7 +593,7 @@ Endpoint para deletar uma resposta feita pelo usuário. Apenas respostas criadas
 
 **URL:**
 
-```
+```bash
 ❯ DELETE http://localhost:8080/answers/{ID}
 ```
 
@@ -536,7 +603,7 @@ Endpoint para deletar uma resposta feita pelo usuário. Apenas respostas criadas
 
 **Exemplo de Uso:**
 
-```
+```bash
 ❯ DELETE http://localhost:8080/answers/33
 ```
 
