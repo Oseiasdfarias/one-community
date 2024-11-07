@@ -447,7 +447,7 @@ Endpoint que lista todas as respostas de uma determinada pergunta.
 **URL:**
 
 ```
-❯ GET http://localhost:8080/answers
+❯ GET http://localhost:8080/answers/list-answers-question/{id}
 ```
 
 **Exemplo de Resposta:**

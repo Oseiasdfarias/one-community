@@ -43,12 +43,14 @@ public class Answer {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
         this.is_accepted = false;
+        this.status = true;
     }
 
     public void updateInfos(DataAnswerUpdateDto data) {
         if (data.body() != null) {
             this.body = data.body();
         }
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void deleteAnswer(){

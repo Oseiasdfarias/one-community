@@ -42,6 +42,7 @@ public class Question {
         body = data.body();
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
+        this.status = true;
     }
 
     public void updateInfos(DataQuestionUpdateDto data) {
@@ -53,6 +54,7 @@ public class Question {
         if (data.body() != null) {
             this.body = data.body();
         }
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void excluir() {
