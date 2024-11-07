@@ -1,5 +1,8 @@
 package br.com.one_community.controllers;
 
+import br.com.one_community.entities.answer.AnswerDetailsDto;
+import br.com.one_community.entities.answer.DataAnswerUpdateDto;
+import br.com.one_community.entities.user.UpdateUserDto;
 import br.com.one_community.entities.user.User;
 import br.com.one_community.entities.user.UserDetailsDto;
 import br.com.one_community.entities.user.UserDto;
@@ -36,6 +39,19 @@ public class UserController {
         return ResponseEntity
                 .created(uri)
                 .body(new UserDetailsDto(user));
+    }
+
+    @PutMapping()
+    @Transactional
+    public ResponseEntity<UserDetailsDto> updateUser(
+            @RequestBody @Valid UpdateUserDto data) {
+        User user = getauthenticatedUser();
+
+        user.updateUser(data);
+
+        userRepository.save(user);
+
+        return ResponseEntity.ok(new UserDetailsDto(user));
     }
 
     @DeleteMapping()

@@ -37,7 +37,10 @@ public class User  implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private Boolean status;
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
 
     public User(UserDto data) {
@@ -45,8 +48,22 @@ public class User  implements UserDetails {
         this.email = data.email();
         this.password = gerarToken(data.password());
         this.role = data.role();
-        this.created_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
         this.status = true;
+    }
+
+    public void updateUser(UpdateUserDto data) {
+        if (data.userName() != null) {
+            this.userName = data.userName();
+        }
+        if (data.email() != null) {
+            this.email = data.email();
+        }
+        if (data.password() != null) {
+            this.password = gerarToken(data.password());
+        }
+        this.updatedAt = LocalDateTime.now();
     }
 
     public void deletarUser() {
